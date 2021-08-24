@@ -1,9 +1,16 @@
-const Discord = require('discord.js')
-const bot = new Discord.Client()
+const { Client, Collection, Intents} = require('discord.js')
+const bot = new Client({
+  intents: [
+    Intents.FLAGS.GUILD_MEMBERS,
+    Intents.FLAGS.GUILD_MESSAGES,
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MESSAGE_REACTIONS
+  ]
+})
 const fs = require('fs')
 const { token, prefix } = require('./config.json')
 
-bot.commands = new Discord.Collection()
+bot.commands = new Collection()
 bot.login(token)
 
 bot.on('ready', () => {
@@ -25,7 +32,7 @@ bot.on('ready', () => {
   console.log('Up and running!')
 })
 
-bot.on('message', async (message) => {
+bot.on('messageCreate', async (message) => {
   if (message.author.bot) return
   if (!message.content.startsWith(prefix)) return
 
