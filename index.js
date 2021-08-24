@@ -8,7 +8,7 @@ const bot = new Client({
   ]
 })
 const fs = require('fs')
-const { token, prefix } = require('./config.json')
+const { token, prefix, guild } = require('./config.json')
 
 bot.commands = new Collection()
 bot.login(token)
@@ -22,11 +22,13 @@ bot.on('ready', () => {
     bot.commands.set(command.replace('.js', ''), props)
   })
 
+  const thisGuild = bot.guilds.cache.get(guild)
+
   // Register event handlers
   fs.readdirSync('./events/').forEach(event => {
     console.log(`Loading event: ${event}`)
 
-    require(`./events/${event}`)(bot)
+    require(`./events/${event}`)(bot, thisGuild)
   })
 
   console.log('Up and running!')

@@ -30,7 +30,11 @@ module.exports.run = async (bot, message, args) => {
     return message.channel.send({ embeds: [response] })
   }
 
-  message.channel.send(response)
+  message.channel.send(response).then(m => {
+    m.delete(10000)
+  })
+
+  message.delete(10000)
 }
 
 function set(server, field, value, channel) {
