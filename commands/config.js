@@ -13,7 +13,7 @@ module.exports.run = async (bot, message, args) => {
 
   switch(subcommand) {
     case 'set':
-      response = set(...evtArgs)
+      response = set(...evtArgs, message.channel.id)
       break
     
     case 'clear':
@@ -33,13 +33,32 @@ module.exports.run = async (bot, message, args) => {
   message.channel.send(response)
 }
 
-function set(server, field, value) {
+function set(server, field, value, channel) {
   if (!field) return `Incorrect usage! Specify the field and value you would like to change it to.`
   if (!server[field]) return `The field: "${field}", does not exist!`
+
+  if (server[field].type === 'channel' && !value) value = channel
+  
+  // Set value
+  server[field].value = value
+
+  // write back to file
+  fs.writeFileSync('./server.json', JSON.stringify(server), 'utf-8')
+
+  return `Field "${field}" was set to "${value}"!`
 }
 
 function clear(server, field, value) {
+  if (!field) return `Incorrect usage! Specify the field and value you would like to change it to.`
+  if (!server[field]) return `The field: "${field}", does not exist!`
+  
+  // Set value
+  server[field].value = ''
 
+  // write back to file
+  fs.writeFileSync('./server.json', JSON.stringify(server), 'utf-8')
+
+  return `Field "${field}" was cleared!`
 }
 
 function list(server) {
