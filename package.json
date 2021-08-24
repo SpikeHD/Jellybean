@@ -1,0 +1,11 @@
+{
+  "name": "Jellybean",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/SpikeHD/Jellybean.git",
+  "author": "spikegd <spikegdofficial@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^13.1.0"
+  }
+}
