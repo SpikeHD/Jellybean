@@ -1,9 +1,9 @@
 module.exports = (bot, guild) => {
   bot.on('guildMemberRemove', (member) => {
-    const { joins } = require('../server.json')
-    const channel = guild.channels.cache.get(joins.value)
+    const { leaves } = require('../server.json')
+    const channel = guild.channels.cache.get(leaves.value)
 
-    if (!channel) return console.log('Borked join channel :((');
+    if (!channel) return console.log('Borked leave channel :((');
 
     channel.send(`Hope to see you again, ${member}!`)
   })

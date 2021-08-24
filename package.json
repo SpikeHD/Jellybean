@@ -6,6 +6,7 @@
   "author": "spikegd <spikegdofficial@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "discord.js": "^13.1.0"
+    "discord.js": "^13.1.0",
+    "got": "^11.8.2"
   }
 }
